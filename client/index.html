@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>PATROL — Retro Pixel Fighter Sandbox</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=Silkscreen:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="gl-canvas"></canvas>
+      <canvas id="hud-canvas"></canvas>
+
+      <!-- Terrain Generation Loader -->
+      <div id="loader-overlay" class="overlay hidden">
+        <div class="pixel-panel loader-box">
+          <div class="pixel-title-sm">GENERATING SECTOR</div>
+          <div id="loader-seed" class="mono-dim">SEED: LAKE-4821</div>
+          <div class="progress-track">
+            <div id="loader-bar" class="progress-fill" style="width: 0%"></div>
+          </div>
+          <div id="loader-status" class="mono-dim">0% — SCULPTING BASINS</div>
+        </div>
+      </div>
+
+      <!-- Title Card Overlay -->
+      <div id="title-overlay" class="overlay">
+        <div class="pixel-panel title-card">
+          <div class="title-badge">LAKE COUNTRY // LAST LIGHT</div>
+          <h1 class="pixel-logo">PATROL</h1>
+          <p class="title-sub">
+            Twin-engine pixel-art flight toy &amp; ambient wingman sandbox.
+            Move mouse to take the stick, or watch autopilot orbit the lakes.
+          </p>
+          <div class="title-actions">
+            <button id="btn-launch" class="pixel-btn primary">TAKE THE STICK</button>
+            <button id="btn-title-seeds" class="pixel-btn">SEEDS &amp; PRESETS</button>
+          </div>
+          <div class="title-meta mono-dim" id="title-meta">
+            SEED: LAKE-4821 · LAST LIGHT · 1 PILOT IN SECTOR
+          </div>
+        </div>
+      </div>
+
+      <!-- Top-Right Minimal Status Badges -->
+      <div id="top-bar">
+        <button id="btn-seed-badge" class="hud-pill" title="Seeds, Presets & Sortie">
+          <span class="dot online" id="net-dot"></span>
+          <span id="badge-seed">LAKE-4821</span>
+          <span class="sep">|</span>
+          <span id="badge-players">1 IN WING</span>
+        </button>
+        <button id="btn-sortie-hud" class="hud-pill hidden" title="Recon Sortie Timer">
+          <span id="sortie-hud-text">RING 1/8 · 00:00.0</span>
+        </button>
+        <div class="top-actions">
+          <button id="btn-wall" class="hud-pill" title="Recon Postcard Wall">WALL</button>
+          <button id="btn-pilot" class="hud-pill" title="Pilot Callsign & Settings">PILOT</button>
+          <button id="btn-offline" class="hud-pill" title="Toggle Online / Solo Flight">ONLINE</button>
+          <button id="btn-sound" class="hud-pill" title="Toggle Synthesized Audio">AUDIO: OFF</button>
+        </div>
+      </div>
+
+      <!-- Quiet Bottom Control Hints Strip -->
+      <div id="bottom-strip">
+        <div class="hints-left mono-dim">
+          <span>[MOUSE] STEER</span>
+          <span>[L-CLICK] ROLL</span>
+          <span>[L-HOLD] BURNER</span>
+          <span>[R-CLICK / F] MISSILE</span>
+          <span>[SPACE] VIEW</span>
+          <span>[P] POSTCARD</span>
+        </div>
+        <div class="rails-right">
+          <span class="mono-dim" id="camera-label">CHASE</span>
+          <div class="missile-pips" id="missile-pips" title="Missile Rails">
+            <span class="pip ready"></span>
+            <span class="pip ready"></span>
+            <span class="pip ready"></span>
+            <span class="pip ready"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Touch Controls (shown on touch devices) -->
+      <div id="touch-controls" class="hidden">
+        <div id="touch-stick-zone" class="touch-zone">
+          <div id="touch-stick-nub"></div>
+        </div>
+        <div class="touch-buttons">
+          <button id="touch-cam" class="touch-btn">VIEW</button>
+          <button id="touch-roll" class="touch-btn">ROLL</button>
+          <button id="touch-burner" class="touch-btn">AB</button>
+          <button id="touch-fire" class="touch-btn fire">MSL</button>
+        </div>
+      </div>
+
+      <!-- Postcard Toast -->
+      <div id="toast" class="toast hidden"></div>
+
+      <!-- Compact Modal Drawer (Seeds / Recon Wall / Pilot) -->
+      <div id="modal-overlay" class="overlay hidden">
+        <div class="pixel-panel modal-box">
+          <div class="modal-header">
+            <div class="modal-tabs">
+              <button class="tab-btn active" data-tab="seeds">SEEDS &amp; SORTIE</button>
+              <button class="tab-btn" data-tab="wall">RECON WALL</button>
+              <button class="tab-btn" data-tab="pilot">PILOT</button>
+            </div>
+            <button id="btn-close-modal" class="pixel-btn small">ESC</button>
+          </div>
+          <div id="modal-body" class="modal-body"></div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
